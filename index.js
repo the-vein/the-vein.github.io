@@ -69,6 +69,14 @@ $(document).ready(function () {
 	});
 
 	$getTextButton.click(function () {
+		var timeStamp = 1501355204;
+		var sigArtistStr = '';
+		var sigTrackStr = '';
+		var sigTimeStampStr = '';
+		var paramArtist = '';
+		var paramTrack = '';
+		var paramTimeStamp = '';
+
 		var text = $textbox.val();
 		var lines = text.split('\n');
 
@@ -85,51 +93,41 @@ $(document).ready(function () {
 					title = title.match(/(?!\s).*/)[0];
 				}
 
-				console.log('Artist: ' + artist, 'Title: ' + title);
+				timeStamp += 200;
+
+				sigArtistStr += 'artist[' + i + ']' + artist;
+				paramArtist += '&artist[' + i + ']=' + artist;
+				sigTrackStr += 'track[' + i + ']' + title;
+				paramTrack += '&track[' + i + ']=' + title;
+				sigTimeStampStr += 'timestamp[' + i + ']' + timeStamp;
+				paramTimeStamp += '&timestamp[' + i + ']=' + timeStamp;
 			}
 		}
 
-		var timeStamp = '1501355204';
+
 
 
 		var sigApiKeyStr = 'api_key' + apiKey;
-		var sigArtistStr = 'artist[0]' + 'Implex';
+		// var sigArtistStr = 'artist[0]' + 'Implex';
 		var sigMethodStr = 'method' + 'track.scrobble';
 		var sigSessionKeyStr = 'sk' + sessionKey;
-		var sigTimeStamp = 'timestamp[0]' + timeStamp;
-		var sigTrackStr = 'track[0]' + 'You';
+		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr +
+			sigSessionKeyStr + sigTimeStampStr + sigTrackStr + secret;
 
-		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigSessionKeyStr + sigTimeStamp + sigTrackStr + secret;
 		var sigHash = hex_md5(sigStr);
 
-		var scrobbleArgs = {
-			method: 'track.scrobble',
-			'artist[0]': 'Implex',
-			'track[0]': 'You',
-			api_key: apiKey,
-			api_sig: sigHash,
-			format: 'json',
-			sk: sessionKey,
-			'timespamp[0]': timeStamp
-		};
-
-		var scrobbleArgs = {
-			api_key: apiKey,
-			api_sig: sigHash,
-			'artist[0]': 'Implex',
-			method: 'track.scrobble',
-			sk: sessionKey,
-			'timespamp[0]': timeStamp,
-			'track[0]': 'You'
-//			format: 'json'
-		};
-
+		// var scrobbleArgs = {
+		// 	api_key: apiKey,
+		// 	api_sig: sigHash,
+		// 	method: 'track.scrobble',
+		// 	sk: sessionKey
+		// };
 
 		$.ajax({
 			type: 'POST',
-			url: lastFmUrl + '?api_key=' + apiKey + '&api_sig=' + sigHash +
-				'&artist[0]=Implex&method=track.scrobble&sk=' + sessionKey +
-				'&timestamp[0]=' + timeStamp + '&track[0]=You',
+			url: lastFmUrl + '?api_key=' + apiKey + '&api_sig=' + sigHash + paramArtist +
+				'&method=track.scrobble&sk=' + sessionKey +
+				paramTimeStamp + paramTrack + '&format=json',
 			success: function (data) {
 				console.log('success', data);
 			},
@@ -137,26 +135,5 @@ $(document).ready(function () {
 				console.log(code, message);
 			}
 		});
-
-		$.ajax({
-			type: 'POST',
-			url: lastFmUrl + '',
-			data: scrobbleArgs,
-			success: function (data) {
-				console.log('success', data);
-			},
-			error: function (code, message) {
-				console.log(code, message);
-			}
-		});
-
-		$.post(lastFmUrl, scrobbleArgs,
-		    function(returnedData){
-		         console.log(returnedData);
-		}).fail(function(code, message){
-		      console.log('error');
-			  console.log(code, message);
-		});
-
 	});
 });
