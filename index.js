@@ -108,10 +108,22 @@ $(document).ready(function () {
 			'track[0]': 'You',
 			api_key: apiKey,
 			api_sig: sigHash,
-//			format: 'json',
+			format: 'json',
 			sk: sessionKey,
 			'timespamp[0]': timeStamp
 		};
+
+		var scrobbleArgs = {
+			api_key: apiKey,
+			api_sig: sigHash,
+			'artist[0]': 'Implex',
+			method: 'track.scrobble',
+			sk: sessionKey,
+			'timespamp[0]': timeStamp,
+			'track[0]': 'You'
+//			format: 'json'
+		};
+
 
 		$.ajax({
 			type: 'POST',
