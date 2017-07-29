@@ -105,7 +105,8 @@ $(document).ready(function () {
 			track: 'You',
 			api_key: apiKey,
 			api_sig: sigHash,
-			format: 'json'
+			format: 'json',
+			sk: sessionKey
 		};
 
 		$.ajax({
@@ -122,26 +123,5 @@ $(document).ready(function () {
 				console.log(code, message);
 			}
 		});
-
-		$.ajax({
-			type: 'POST',
-			url: lastFmUrl,
-			data: 'method=artist.getinfo&' +
-				   'artist=Burial&' +
-				   'api_key=85255598eb489a85d75ef556169fd824&' +
-				   'format=json',
-			dataType: 'jsonp',
-			success: function (data) {
-				// Handle success code here
-				console.log(data);
-			},
-			error: function (code, message) {
-				// Handle error here
-
-				console.log(code, message);
-			}
-		});
-
-    });
-
+	});
 });
