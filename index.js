@@ -95,10 +95,11 @@ $(document).ready(function () {
 		var sigApiKeyStr = 'api_key' + apiKey;
 		var sigArtistStr = 'artist[0]' + 'Implex';
 		var sigMethodStr = 'method' + 'track.scrobble';
+		var sigSessionKeyStr = 'sk' + sessionKey;
 		var sigTimeStamp = 'timestamp[0]' + timeStamp;
 		var sigTrackStr = 'track[0]' + 'You';
 
-		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTimeStamp + sigTrackStr + secret;
+		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigSessionKeyStr + sigTimeStamp + sigTrackStr + secret;
 		var sigHash = hex_md5(sigStr);
 
 		var scrobbleArgs = {
@@ -127,18 +128,6 @@ $(document).ready(function () {
 
 		$.ajax({
 			type: 'POST',
-			url: lastFmUrl,
-			data: JSON.stringify(scrobbleArgs),
-			success: function (data) {
-				console.log('success', data);
-			},
-			error: function (code, message) {
-				console.log(code, message);
-			}
-		});
-
-		$.ajax({
-			type: 'POST',
 			url: lastFmUrl + '',
 			data: scrobbleArgs,
 			success: function (data) {
@@ -150,15 +139,6 @@ $(document).ready(function () {
 		});
 
 		$.post(lastFmUrl, scrobbleArgs,
-		    function(returnedData){
-		         console.log(returnedData);
-		}).fail(function(code, message){
-		      console.log('error');
-			  console.log(code, message);
-		});
-
-
-		$.post(lastFmUrl, JSON.stringify(scrobbleArgs),
 		    function(returnedData){
 		         console.log(returnedData);
 		}).fail(function(code, message){
