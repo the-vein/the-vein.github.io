@@ -15,7 +15,7 @@ $(document).ready(function () {
 	var $getTextButton = $('#get_text_button');
 	var $loginButton = $('#login-button');
 
-	var lastFmUrl = 'https://ws.audioscrobbler.com/2.0/';
+	var lastFmUrl = 'https://ws.audioscrobbler.com/2.0';
 	var apiKey = '85255598eb489a85d75ef556169fd824';
 	var secret = '19c8cc5704536b2a8e6805b2a62f7e2e';
 
@@ -90,20 +90,20 @@ $(document).ready(function () {
 		}
 
 		var sigApiKeyStr = 'api_key' + apiKey;
-		var sigArtistStr = 'artist' + 'Implex';
+		var sigArtistStr = 'artist[0]' + 'Implex';
 		var sigMethodStr = 'method' + 'track.scrobble';
-		var sigTrackStr = 'track' + 'You';
+		var sigTrackStr = 'track[0]' + 'You';
 
 		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTrackStr + secret;
 		var sigHash = hex_md5(sigStr);
 
 		var scrobbleArgs = {
 			method: 'track.scrobble',
-			artist: 'Implex',
-			track: 'You',
+			'artist[0]': 'Implex',
+			'track[0]': 'You',
 			api_key: apiKey,
 			api_sig: sigHash,
-			format: 'json',
+//			format: 'json',
 			sk: sessionKey
 		};
 
@@ -121,8 +121,8 @@ $(document).ready(function () {
 
 		$.ajax({
 			type: 'POST',
-			url: lastFmUrl + "",
-			data: scrobbleArgs,
+			url: lastFmUrl + '',
+			data: JSON.stringify(scrobbleArgs),
 			success: function (data) {
 				console.log('success', data);
 			},
