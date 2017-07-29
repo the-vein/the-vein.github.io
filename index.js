@@ -69,13 +69,14 @@ $(document).ready(function () {
 	});
 
 	$getTextButton.click(function () {
-		var timeStamp = 1501355204;
+		var unixTimeStamp = 1501355204;
 		var sigArtistStr = '';
 		var sigTrackStr = '';
 		var sigTimeStampStr = '';
 		var paramArtist = '';
 		var paramTrack = '';
 		var paramTimeStamp = '';
+		var scrobbles = [];
 
 		var text = $textbox.val();
 		var lines = text.split('\n');
@@ -93,19 +94,34 @@ $(document).ready(function () {
 					title = title.match(/(?!\s).*/)[0];
 				}
 
-				timeStamp += 200;
+				unixTimeStamp += 200;
 
-				sigArtistStr += 'artist[' + i + ']' + artist;
-				paramArtist += '&artist[' + i + ']=' + artist;
-				sigTrackStr += 'track[' + i + ']' + title;
-				paramTrack += '&track[' + i + ']=' + title;
-				sigTimeStampStr += 'timestamp[' + i + ']' + timeStamp;
-				paramTimeStamp += '&timestamp[' + i + ']=' + timeStamp;
+				var scrobble = {
+					artist: artist,
+					track: title,
+					timestamp: unixTimeStamp
+				};
+
+				scrobbles.push(scrobble);
 			}
 		}
 
+		for (var j = 10; j < scrobbles.length; j++) {
+			addToScrobblesRequest(scrobbles[j]);
+		}
 
+		for (var k = 0; k < 10; k++) {
+			addToScrobblesRequest(scrobbles[k]);
+		}
 
+		function addToScrobblesRequest (scrobble, i) {
+			sigArtistStr += 'artist[' + i + ']' + scrobble.artist;
+			paramArtist += '&artist[' + i + ']=' + scrobble.artist;
+			sigTrackStr += 'track[' + i + ']' + scrobble.track;
+			paramTrack += '&track[' + i + ']=' + scrobble.track;
+			sigTimeStampStr += 'timestamp[' + i + ']' + scrobble.timestamp;
+			paramTimeStamp += '&timestamp[' + i + ']=' + scrobble.timestamp;
+		}
 
 		var sigApiKeyStr = 'api_key' + apiKey;
 		// var sigArtistStr = 'artist[0]' + 'Implex';
