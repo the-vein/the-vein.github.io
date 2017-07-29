@@ -115,9 +115,6 @@ $(document).ready(function () {
 			data: scrobbleArgs,
 			success: function (data) {
 				console.log('success', data);
-
-				sessionKey = data.key;
-				localStorage.setItem(SESSION_KEY_STORAGE_NAME, sessionKey);
 			},
 			error: function (code, message) {
 				console.log(code, message);
