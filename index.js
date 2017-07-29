@@ -37,7 +37,7 @@ $(document).ready(function(){
 		console.log(sigHash);
 			
 		var params = {
-			api_key : api_key,
+			api_key : apiKey,
 			token : token,
 			api_sig : sigHash
 		}				
