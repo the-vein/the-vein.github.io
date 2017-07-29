@@ -42,7 +42,7 @@ $(document).ready(function(){
 		$.ajax({
 			type : 'GET',
 			url : 'https://ws.audioscrobbler.com/2.0/',
-			data : params
+			data : params,
 			success : function(data) {
 				
 				console.log("success", data);
