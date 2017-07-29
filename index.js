@@ -138,9 +138,9 @@ $(document).ready(function () {
 
 		$.ajax({
 			type: 'POST',
-			url: lastFmUrl + '?api_key=' + apiKey + '&api_sig=' + sigHash + paramArtist +
+			url: encodeURIComponent(lastFmUrl + '?api_key=' + apiKey + '&api_sig=' + sigHash + paramArtist +
 				'&method=track.scrobble&sk=' + sessionKey +
-				paramTimeStamp + paramTrack + '&format=json',
+				paramTimeStamp + paramTrack + '&format=json'),
 			success: function (data) {
 				console.log('success', data);
 			},
