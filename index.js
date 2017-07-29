@@ -15,7 +15,7 @@ $(document).ready(function () {
 	var $getTextButton = $('#get_text_button');
 	var $loginButton = $('#login-button');
 
-	var lastFmUrl = 'https://ws.audioscrobbler.com/2.0';
+	var lastFmUrl = 'https://ws.audioscrobbler.com/2.0/';
 	var apiKey = '85255598eb489a85d75ef556169fd824';
 	var secret = '19c8cc5704536b2a8e6805b2a62f7e2e';
 
@@ -89,9 +89,13 @@ $(document).ready(function () {
 			}
 		}
 
+		var timeStamp = '1501355204';
+
+
 		var sigApiKeyStr = 'api_key' + apiKey;
 		var sigArtistStr = 'artist[0]' + 'Implex';
 		var sigMethodStr = 'method' + 'track.scrobble';
+		var sigTimeStamp = 'timestamp[0]' + timeStamp;
 		var sigTrackStr = 'track[0]' + 'You';
 
 		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTrackStr + secret;
@@ -104,8 +108,22 @@ $(document).ready(function () {
 			api_key: apiKey,
 			api_sig: sigHash,
 //			format: 'json',
-			sk: sessionKey
+			sk: sessionKey,
+			'timespamp[0]': timeStamp
 		};
+
+		$.ajax({
+			type: 'POST',
+			url: lastFmUrl + '?api_key=' + apiKey + '&api_sig=' + sigHash +
+				'&artist[0]=Implex&method=track.scrobble&sk=' + sessionKey +
+				'&timestamp[0]=' + timeStamp + '&track[0]=You',
+			success: function (data) {
+				console.log('success', data);
+			},
+			error: function (code, message) {
+				console.log(code, message);
+			}
+		});
 
 		$.ajax({
 			type: 'POST',
@@ -122,7 +140,7 @@ $(document).ready(function () {
 		$.ajax({
 			type: 'POST',
 			url: lastFmUrl + '',
-			data: JSON.stringify(scrobbleArgs),
+			data: scrobbleArgs,
 			success: function (data) {
 				console.log('success', data);
 			},
@@ -135,10 +153,18 @@ $(document).ready(function () {
 		    function(returnedData){
 		         console.log(returnedData);
 		}).fail(function(code, message){
-		      console.log("error");
+		      console.log('error');
 			  console.log(code, message);
 		});
 
+
+		$.post(lastFmUrl, JSON.stringify(scrobbleArgs),
+		    function(returnedData){
+		         console.log(returnedData);
+		}).fail(function(code, message){
+		      console.log('error');
+			  console.log(code, message);
+		});
 
 	});
 });
