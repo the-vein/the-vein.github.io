@@ -41,7 +41,7 @@ $(document).ready(function () {
 
 		var getSessionArgs = {
 			method: 'auth.getSession',
-			//api_key: apiKey,
+			api_key: apiKey,
 			token: token,
 			api_sig: sigHash,
 			format: 'json'
@@ -118,5 +118,15 @@ $(document).ready(function () {
 				console.log(code, message);
 			}
 		});
+
+		$.post(lastFmUrl, scrobbleArgs,
+		    function(returnedData){
+		         console.log(returnedData);
+		}).fail(function(code, message){
+		      console.log("error");
+			  console.log(code, message);
+		});
+
+
 	});
 });
