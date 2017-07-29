@@ -34,7 +34,7 @@ $(document).ready(function(){
 		var sigStr = sigApiKeyStr + sigMethodStr + sigTokenStr + secret;			
 		var sigHash = hex_md5(sigStr);
 		
-		console.log(hash);
+		console.log(sigHash);
 			
 		var params = {
 			api_key : api_key,
