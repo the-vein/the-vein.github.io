@@ -34,7 +34,7 @@ $(document).ready(function(){
 		console.log(sigHash);
 			
 		var params = {
-			method : "auth.getSession"
+			method : "auth.getSession",
 			api_key : apiKey,
 			token : token,
 			api_sig : sigHash
