@@ -1,5 +1,6 @@
 $(document).ready(function(){
-                console.log(1);
+
+				
     var $textbox = $("textarea");    
     var $getTextButton = $("#get_text_button");
     
@@ -23,9 +24,30 @@ $(document).ready(function(){
                 console.log("Artist: " + artist, "Title: " + title);
             }
         }
-        
-
-        
+		
+		
+		
+		$.ajax({
+			type : 'POST',
+			url : 'http://ws.audioscrobbler.com/2.0/',
+			data : 'method=artist.getinfo&' +
+				   'artist=Burial' +
+				   'api_key=85255598eb489a85d75ef556169fd824' +
+				   'format=json',
+			dataType : 'jsonp',
+			success : function(data) {
+				// Handle success code here
+				
+				console.log(data);
+				
+			},
+			error : function(code, message){
+				// Handle error here
+				
+				console.log(data);
+			}
+		});			
+   
     });
 
 });
