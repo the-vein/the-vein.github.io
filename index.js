@@ -1,9 +1,8 @@
 $(document).ready(function () {
-
 	function getParams () {
 		var hashParams = {};
-		var e, r = /([^&;=]+)=?([^&;]*)/g,
-		q = window.location.search.substring(1);
+		var e, r = /([^&;=]+)=?([^&;]*)/g;
+		var q = window.location.search.substring(1);
 		while (e = r.exec(q)) {
 			hashParams[e[1]] = decodeURIComponent(e[2]);
 		}
@@ -21,7 +20,6 @@ $(document).ready(function () {
 	var params = getParams();
 	var token = params.token;
 
-
 	if (token != null) {
 		$loginButton.hide();
 
@@ -33,12 +31,12 @@ $(document).ready(function () {
 
 		console.log(sigHash);
 
-
 		var getSessionArgs = {
 			method: 'auth.getSession',
 			api_key: apiKey,
 			token: token,
-			api_sig: sigHash
+			api_sig: sigHash,
+			format: 'json'
 		};
 
 		$.ajax({
@@ -46,32 +44,25 @@ $(document).ready(function () {
 			url: 'https://ws.audioscrobbler.com/2.0/',
 			data: getSessionArgs,
 			success: function (data) {
-
 				console.log('success', data);
-
 			},
 			error: function (code, message) {
-
 				console.log(code, message);
 			}
 		});
-
 	}	else {
 		$loginButton.show();
 	}
 
-
     $loginButton.click(function () {
-
-	    var url = 'http://www.last.fm/api/auth/?api_key=' + apiKey;
+			var url = 'http://www.last.fm/api/auth/?api_key=' + apiKey;
 
 			window.location.href = url;
 		});
 
-    $getTextButton.click(function() {
-        var text = $textbox.val();
-        var lines = text.split('\n');
-        var linesWithContent = [];
+	    $getTextButton.click(function () {
+				var text = $textbox.val();
+				var lines = text.split('\n');
 
         for (var i = 0; i < lines.length; i++) {
             if (/-/.test(lines[i])) {
@@ -89,10 +80,6 @@ $(document).ready(function () {
             }
         }
 
-
-
-
-
 		$.ajax({
 			type: 'POST',
 			url: 'https://ws.audioscrobbler.com/2.0/',
@@ -101,16 +88,14 @@ $(document).ready(function () {
 				   'api_key=85255598eb489a85d75ef556169fd824&' +
 				   'format=json',
 			dataType: 'jsonp',
-			success: function(data) {
+			success: function (data) {
 				// Handle success code here
-
 				console.log(data);
-
 			},
-			error: function(code, message){
+			error: function (code, message) {
 				// Handle error here
 
-				console.log(data);
+				console.log(code, message);
 			}
 		});
 
