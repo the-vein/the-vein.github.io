@@ -1,0 +1,62 @@
+body {
+    background-color: coral;
+    text-align: center;
+    font-family: Verdana;
+    margin: 0;
+}
+
+header {
+    width: 70%;
+    height: 50px;
+    border-radius: 10px;
+    background-color: burlywood;
+    margin: 15px auto;
+}
+
+h1 {
+    margin: 0;
+    line-height: 50px;
+}
+
+main{
+    background-color: cornsilk;
+    width: 70%;
+    margin: 10px auto;
+    border-radius: 2px;
+    
+    position: fixed;
+    top: 75px;
+    bottom: 75px; 
+    left: 0px;
+    right: 0px; 
+    
+    padding: 20px 0;
+}
+
+section {
+    height: 100%;
+}
+
+
+textarea {
+    width: 80%;
+    height: 80%;
+}
+
+
+#get_text_button {
+    display: block;
+    margin: 5px auto;
+}
+
+footer {
+    height: 50px;
+    width: 70%;
+    background-color: burlywood; 
+    margin: 15px auto;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right:0;
+    border-radius: 10px;    
+}
