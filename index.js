@@ -110,6 +110,18 @@ $(document).ready(function () {
 		$.ajax({
 			type: 'POST',
 			url: lastFmUrl,
+			data: JSON.stringify(scrobbleArgs),
+			success: function (data) {
+				console.log('success', data);
+			},
+			error: function (code, message) {
+				console.log(code, message);
+			}
+		});
+
+		$.ajax({
+			type: 'POST',
+			url: lastFmUrl + "",
 			data: scrobbleArgs,
 			success: function (data) {
 				console.log('success', data);
