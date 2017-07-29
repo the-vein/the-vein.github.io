@@ -69,6 +69,14 @@ $(document).ready(function () {
 	});
 
 	$getTextButton.click(function () {
+		var text = $textbox.val();
+		var lines = text.split('\n');
+
+		if (lines.length === 0) {
+			console.log('empty tracklist');
+			return;
+		}
+
 		var unixTimeStamp = 1501355204;
 		var sigArtistStr = '';
 		var sigTrackStr = '';
@@ -77,9 +85,6 @@ $(document).ready(function () {
 		var paramTrack = '';
 		var paramTimeStamp = '';
 		var scrobbles = [];
-
-		var text = $textbox.val();
-		var lines = text.split('\n');
 
 		for (var i = 0; i < lines.length; i++) {
 			if (/-/.test(lines[i])) {
@@ -107,11 +112,11 @@ $(document).ready(function () {
 		}
 
 		for (var j = 10; j < scrobbles.length; j++) {
-			addToScrobblesRequest(scrobbles[j]);
+			addToScrobblesRequest(scrobbles[j], j);
 		}
 
 		for (var k = 0; k < 10; k++) {
-			addToScrobblesRequest(scrobbles[k]);
+			addToScrobblesRequest(scrobbles[k], k);
 		}
 
 		function addToScrobblesRequest (scrobble, i) {
@@ -124,20 +129,12 @@ $(document).ready(function () {
 		}
 
 		var sigApiKeyStr = 'api_key' + apiKey;
-		// var sigArtistStr = 'artist[0]' + 'Implex';
 		var sigMethodStr = 'method' + 'track.scrobble';
 		var sigSessionKeyStr = 'sk' + sessionKey;
 		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr +
 			sigSessionKeyStr + sigTimeStampStr + sigTrackStr + secret;
 
 		var sigHash = hex_md5(sigStr);
-
-		// var scrobbleArgs = {
-		// 	api_key: apiKey,
-		// 	api_sig: sigHash,
-		// 	method: 'track.scrobble',
-		// 	sk: sessionKey
-		// };
 
 		$.ajax({
 			type: 'POST',
