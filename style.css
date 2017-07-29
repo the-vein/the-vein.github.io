@@ -44,6 +44,10 @@ textarea {
 }
 
 
+#login-button {
+	display: none;
+}
+
 #get_text_button {
     display: block;
     margin: 5px auto;

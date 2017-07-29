@@ -1,8 +1,4 @@
 $(document).ready(function(){
-
-				
-    var $textbox = $("textarea");    
-    var $getTextButton = $("#get_text_button");
 	
 	function getParams() {
 		var hashParams = {};
@@ -12,38 +8,64 @@ $(document).ready(function(){
 			hashParams[e[1]] = decodeURIComponent(e[2]);
 		}
 		return hashParams;
-	}
+	}	
 
-
+	//globals:		
+    var $textbox = $("textarea");    
+    var $getTextButton = $("#get_text_button");
+	var $loginButton = $("#login-button");
+	
+	var apiKey = "85255598eb489a85d75ef556169fd824";
+	var secret = "19c8cc5704536b2a8e6805b2a62f7e2e";
+	
 	var params = getParams();
-	var token = params.token;
-
+	var token = params.token;	
+	
+	
 	console.log(params);	
+	
+	
+	if (token != null) {
+		$loginButton.hide();
+			
+		var sigApiKeyStr = "api_key" + apiKey;
+		var sigMethodStr = "method" + "getSession";
+		var sigTokenStr = "token" + token;			
+		var sigStr = sigApiKeyStr + sigMethodStr + sigTokenStr + secret;			
+		var sigHash = hex_md5(sigStr);
+		
+		console.log(hash);
+			
+		var params = {
+			api_key : api_key,
+			token : token,
+			api_sig : sigHash
+		}				
+		
+		$.ajax({
+			type : 'GET',
+			url : 'https://ws.audioscrobbler.com/2.0/',
+			data : params,
+			dataType : 'jsonp',
+			success : function(data) {
+				
+				console.log("success", data);
+				
+			},
+			error : function(code, message){
+				
+				console.log(code, message);
+			}
+		});		
+	}	
+	else {
+		$loginButton.show();
+	}
+	
     
-    $("#login-button").click(function() {
-		// localStorage.removeItem(ACCESS_TOKEN_KEY);
-		// var state = generateRandomString(16);
-		// localStorage.setItem(STATE_KEY, state);
-		// var dateLogin = Math.floor(Date.now() / 1000);
-		// localStorage.setItem(DATE_LOGIN_KEY, dateLogin);
+    $loginButton.click(function() {
 
-		// var client_id = "0021f16415934279a9f094535452a760";
-		// var scope = "playlist-read-private";
-
-		// var redirect_uri;
-		// var localHost = "localhost:8005";
-		// var localFromNetwork = "192.168.178.40:8005";
-		// if (location.host === localHost) {
-		// redirect_uri = "http://" + localHost;
-		// }
-		// else if (location.host === localFromNetwork) {
-		// redirect_uri = "http://" + localFromNetwork;
-		// }
-		// else {
-		// redirect_uri = "https://5myg.github.io";
-		// }
-
-		var url = "http://www.last.fm/api/auth/?api_key=85255598eb489a85d75ef556169fd824";
+		var url = "http://www.last.fm/api/auth/?api_key=" + apiKey;
 
 		window.location.href = url;
     });	
