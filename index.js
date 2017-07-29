@@ -94,10 +94,9 @@ $(document).ready(function () {
 		var sigApiKeyStr = 'api_key' + apiKey;
 		var sigArtistStr = 'artist' + 'Implex';
 		var sigMethodStr = 'method' + 'track.scrobble';
-		var sigTokenStr = 'token' + token;
 		var sigTrackStr = 'track' + 'You';
 
-		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTokenStr + sigTrackStr + secret;
+		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTrackStr + secret;
 		var sigHash = hex_md5(sigStr);
 
 		var scrobbleArgs = {
@@ -105,7 +104,6 @@ $(document).ready(function () {
 			artist: 'Implex',
 			track: 'You',
 			api_key: apiKey,
-			token: token,
 			api_sig: sigHash,
 			format: 'json'
 		};
