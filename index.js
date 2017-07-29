@@ -3,6 +3,22 @@ $(document).ready(function(){
 				
     var $textbox = $("textarea");    
     var $getTextButton = $("#get_text_button");
+	
+	function getParams() {
+		var hashParams = {};
+		var e, r = /([^&;=]+)=?([^&;]*)/g,
+		q = window.location.search.substring(1);
+		while ( e = r.exec(q)) {
+			hashParams[e[1]] = decodeURIComponent(e[2]);
+		}
+		return hashParams;
+	}
+
+
+	var params = getParams();
+	var token = params.token;
+
+	console.log(params);	
     
     $("#login-button").click(function() {
 		// localStorage.removeItem(ACCESS_TOKEN_KEY);
