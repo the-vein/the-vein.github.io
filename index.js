@@ -29,10 +29,10 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type : 'POST',
-			url : 'http://ws.audioscrobbler.com/2.0/',
+			url : 'https://ws.audioscrobbler.com/2.0/',
 			data : 'method=artist.getinfo&' +
-				   'artist=Burial' +
-				   'api_key=85255598eb489a85d75ef556169fd824' +
+				   'artist=Burial&' +
+				   'api_key=85255598eb489a85d75ef556169fd824&' +
 				   'format=json',
 			dataType : 'jsonp',
 			success : function(data) {
