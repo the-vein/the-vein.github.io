@@ -26,7 +26,7 @@ $(document).ready(function(){
 		$loginButton.hide();
 			
 		var sigApiKeyStr = "api_key" + apiKey;
-		var sigMethodStr = "method" + "getSession";
+		var sigMethodStr = "method" + "auth.getSession";
 		var sigTokenStr = "token" + token;			
 		var sigStr = sigApiKeyStr + sigMethodStr + sigTokenStr + secret;			
 		var sigHash = hex_md5(sigStr);
@@ -34,6 +34,7 @@ $(document).ready(function(){
 		console.log(sigHash);
 			
 		var params = {
+			method : "auth.getSession"
 			api_key : apiKey,
 			token : token,
 			api_sig : sigHash
