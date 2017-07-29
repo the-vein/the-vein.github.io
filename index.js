@@ -54,7 +54,7 @@ $(document).ready(function () {
 			success: function (data) {
 				console.log('success', data);
 
-				sessionKey = data.key;
+				sessionKey = data.session.key;
 				localStorage.setItem(SESSION_KEY_STORAGE_NAME, sessionKey);
 			},
 			error: function (code, message) {
