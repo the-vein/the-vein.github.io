@@ -98,7 +98,7 @@ $(document).ready(function () {
 		var sigTimeStamp = 'timestamp[0]' + timeStamp;
 		var sigTrackStr = 'track[0]' + 'You';
 
-		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTrackStr + secret;
+		var sigStr = sigApiKeyStr + sigArtistStr + sigMethodStr + sigTimeStamp + sigTrackStr + secret;
 		var sigHash = hex_md5(sigStr);
 
 		var scrobbleArgs = {
