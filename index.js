@@ -20,10 +20,7 @@ $(document).ready(function(){
 	
 	var params = getParams();
 	var token = params.token;	
-	
-	
-	console.log(params);	
-	
+
 	
 	if (token != null) {
 		$loginButton.hide();
@@ -45,8 +42,7 @@ $(document).ready(function(){
 		$.ajax({
 			type : 'GET',
 			url : 'https://ws.audioscrobbler.com/2.0/',
-			data : params,
-			dataType : 'jsonp',
+			data : params
 			success : function(data) {
 				
 				console.log("success", data);
