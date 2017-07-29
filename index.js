@@ -30,7 +30,7 @@ $(document).ready(function () {
 	}
 
 
-	if (token != null) {
+	if (token != null && sessionKey == null) {
 		$loginButton.hide();
 
 		var sigApiKeyStr = 'api_key' + apiKey;
@@ -52,8 +52,6 @@ $(document).ready(function () {
 			url: lastFmUrl,
 			data: getSessionArgs,
 			success: function (data) {
-				console.log('success', data);
-
 				sessionKey = data.session.key;
 				localStorage.setItem(SESSION_KEY_STORAGE_NAME, sessionKey);
 			},
