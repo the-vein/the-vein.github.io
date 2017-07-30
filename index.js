@@ -85,7 +85,7 @@ $(document).ready(function () {
 			return;
 		}
 
-		var unixTimeStamp = Math.round(Date.now() / 1000);
+		var unixTimeStamp = Math.round(Date.now() / 1000) - 10800;  //TODO: fix correct time
 		var sigArtistStr = '';
 		var sigTrackStr = '';
 		var sigTimeStampStr = '';
@@ -160,5 +160,5 @@ $(document).ready(function () {
 		});
 
 	});
-	
+
 });
