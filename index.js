@@ -97,7 +97,7 @@ $(document).ready(function () {
 
 		for (var i = 0; i < lines.length; i++) {
 			if (/-/.test(lines[i])) {
-				var artistAndTitle = lines[i].split('-', 2);
+				var artistAndTitle = lines[i].split(' - ', 2);
 				var artist = artistAndTitle[0];
 				var title = artistAndTitle[1];
 				artist = artist.match(/[^\d\s.].*[^\s]/)[0];
