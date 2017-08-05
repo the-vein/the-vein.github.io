@@ -2,10 +2,14 @@
 <html>
     <head>
         <title>Tracklist Analyzer</title>
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="jquery.datetimepicker.min.css"/ >
+        <script src="jquery.datetimepicker.full.min.js"></script>
+		<script src="md5-min.js"></script>
+		<script src="index.js"></script>
         <link rel="stylesheet" href="style.css" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>   
-		<script src="md5-min.js"></script>	
-		<script src="index.js"></script>		
     </head>
     <body>
         <header>
@@ -19,7 +23,8 @@
 			</div>
             <section>
                 <textarea></textarea>
-                <button id="get_text_button">get text</button>
+                <button id="get_text_button">get tracklist and scrobble</button>
+                <input id="datetimepicker" type="text" > time of first played song. if left blank it will be set to 2 hours ago.
             </section>
             <aside>
             </aside>

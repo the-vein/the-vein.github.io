@@ -25,12 +25,16 @@ $(document).ready(function () {
 	var $getTextButton = $('#get_text_button');
 	var $loginButton = $('#login-button');
 
+	$('#datetimepicker').datetimepicker();
+
 	var lastFmUrl = 'https://ws.audioscrobbler.com/2.0/';
 	var apiKey = '85255598eb489a85d75ef556169fd824';
 	var secret = '19c8cc5704536b2a8e6805b2a62f7e2e';
 
 	var SESSION_KEY_STORAGE_NAME = 'sessionKey';
 	var sessionKey = localStorage.getItem(SESSION_KEY_STORAGE_NAME);
+
+	sessionKey = "nFo88jLh34D-jZUDuvMY82d8_OOxofn1";
 
 	var params = getParams();
 	var token = params.token;
@@ -80,12 +84,21 @@ $(document).ready(function () {
 		var text = $textbox.val();
 		var lines = text.split('\n');
 
-		if (lines.length === 0) {
+		if (lines.length === 0 || lines[0].length < 5) {
 			console.log('empty tracklist');
 			return;
 		}
 
-		var unixTimeStamp = Math.round(Date.now() / 1000) - 10800;  // TODO: fix correct time
+		var setTime = $('#datetimepicker').datetimepicker('getValue');
+		if (setTime == null) {
+			setTime = Date.now() - 10800000;
+		}
+		else {
+			setTime = setTime.getTime();
+		}
+
+		var unixTimeStamp = Math.round(setTime / 1000);
+
 		var sigArtistStr = '';
 		var sigTrackStr = '';
 		var sigTimeStampStr = '';
