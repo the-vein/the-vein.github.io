@@ -34,8 +34,6 @@ $(document).ready(function () {
 	var SESSION_KEY_STORAGE_NAME = 'sessionKey';
 	var sessionKey = localStorage.getItem(SESSION_KEY_STORAGE_NAME);
 
-	sessionKey = "nFo88jLh34D-jZUDuvMY82d8_OOxofn1";
-
 	var params = getParams();
 	var token = params.token;
 
